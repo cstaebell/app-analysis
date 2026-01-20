@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 20 10:59:05 2026
+App Analysis
 
-@author: cstae
+Adapted from Dataquest Guided Project: Profitable App Profiles for the App Store and Google Play Markets
+
 """
 
 #%% Import packages and data
@@ -66,13 +67,20 @@ google.columns # Price
 apple_free = apple[apple["price"] == 0]
 google_free = google[google["Price"] == '0']
 
+#%% Find most common apps by genre for both datasets
 
+# apple: rating_count_tot, user_rating, prime_genre
+# google: Ratings, Reviews, Installs, Genres
 
+apple_genre_counts = apple_free.groupby("prime_genre")["id"].count().sort_values(ascending=False)
+google_genre_counts = google_free.groupby("Genres")["App"].count().sort_values(ascending=False)
+google_category_counts = google_free.groupby("Category")["App"].count().sort_values(ascending=False)
 
+apple_genre_counts.plot.bar()
+plt.title("Apple Genre Counts")
+plt.show()
 
-
-
-
-
-
+google_category_counts.plot.bar()
+plt.title("Google Play Category Counts")
+plt.show()
 
